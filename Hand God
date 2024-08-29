@@ -1,0 +1,479 @@
+local coun = 0
+mask = Instance.new("Part",game.Players.LocalPlayer.Character.Head)
+mask.Size = Vector3.new(.1, 0.39, .1)
+mask.Anchored = false
+mask.Locked = true
+mask.CanCollide = false
+mask.BrickColor = BrickColor.new("White")
+mask.Material = "Corroded Metal"
+
+maskweld = Instance.new("Weld", game.Players.LocalPlayer.Character.Head)
+maskweld.Part0 = mask
+maskweld.Part1 = game.Players.LocalPlayer.Character.Head
+maskweld.C0 = CFrame.new(0,-0.7,0) * CFrame.Angles(math.rad(90),0,0)
+
+maskmesh = Instance.new("SpecialMesh",mask)
+maskmesh.MeshId = "rbxassetid://5158270"
+maskmesh.TextureId = "rbxassetid://128212042"
+maskmesh.Scale = Vector3.new(0.15, 0.1, 0.1)
+
+local plr = game.Players.LocalPlayer
+tool = Instance.new("Tool", plr.Backpack)
+tool.Name = "Knife"
+tool.GripPos = Vector3.new(0,-1,0)
+
+handle = Instance.new("Part",tool)
+handle.Name = "Handle"
+
+mesh = Instance.new("SpecialMesh",handle)
+mesh.MeshId = "http://www.roblox.com/asset?id=121944778"
+mesh.TextureId = "rbxassetid://121944805"
+mesh.Scale = Vector3.new(1,1,1)
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+local currentTime = tick()
+            if currentTime - lastPressTime >= 0.5 then
+                lastPressTime = currentTime 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://203876950"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(1.5)
+
+kns = Instance.new("Sound", handle)
+kns.Name = "Knife Sound"
+kns.SoundId = "rbxassetid://144011185"
+kns.Volume = 1
+kns.PlaybackSpeed = 1
+kns.Looped = false
+kns:Play()
+  end
+end)
+
+handle.Touched:Connect(function(hit)
+    local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid:TakeDamage(2.5)
+    end
+end)
+
+local tool = Instance.new("Tool")
+tool.Name = "Hand Grab"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 5 then
+                lastPressTime = currentTime
+      coun = coun + 1
+          hand2 = Instance.new("Part", workspace)
+hand2.Size = Vector3.new(4,4,4)
+hand2.Anchored = true
+hand2.CanCollide = false
+hand2.CFrame = game.Players.LocalPlayer.Character.Torso.CFrame * CFrame.new(0, 0, 3)
+hand2.BrickColor = BrickColor.new("White")
+hand2.Material = "Slate"
+game.Debris:AddItem(hand2, 3)
+
+    partTween = game:GetService("TweenService"):Create(hand2, TweenInfo.new(3, Enum.EasingStyle.Linear), {
+        Position = hand2.Position + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector * 600
+    })
+    partTween:Play()
+  partTween:Destroy()
+
+hand2.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+ if humanoid and humanoid.Health ~= 0 and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+ hand2:Destroy()
+ humanoid:TakeDamage(10)
+partTween1 = game:GetService("TweenService"):Create(humanoid.RootPart, TweenInfo.new(1.5, Enum.EasingStyle.Linear), {
+        CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    })
+    partTween1:Play()
+    partTween1.Completed:Wait()
+humanoid:TakeDamage(5)
+  if humanoid.Health ~= 0 then
+    humanoid:TakeDamage(10)
+    humanoid:ChangeState("FallingDown")
+    humanoid.RootPart.Velocity = Vector3.new(0, 100, 0)
+   elseif humanoid.Health <= 0 then
+ humanoid:ChangeState("Dead")
+death = Instance.new("Sound", humanoid.Parent["Left Arm"])
+death.Name = "Death Sound"
+death.SoundId = "rbxassetid://5920004288"
+death.Volume = 1
+death.PlaybackSpeed = 1
+death.Looped = false
+death:Play()
+  humanoid.Parent.Torso:Destroy()
+  humanoid.Parent.Head:Destroy()
+   end
+ end
+end)
+
+hand2mesh = Instance.new("SpecialMesh",hand2)
+hand2mesh.MeshId = "rbxassetid://2899129749"
+hand2mesh.Scale = Vector3.new(.8, .8, .8)
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+            tool.RequiresHandle = false
+            tool.Name = "Helping Hand"
+
+            isEnabled = false
+
+NovoBloco = Instance.new("Part", workspace)
+local ts = game:GetService("TweenService")
+NovoBloco.Anchored = true
+NovoBloco.CanCollide = true
+NovoBloco.Orientation = Vector3.new(90, 0, 0)
+NovoBloco.Size = Vector3.new(5.246, 8, 5.852)
+
+hand2mesh = Instance.new("SpecialMesh", NovoBloco)
+hand2mesh.MeshId = "rbxassetid://2899129749"
+hand2mesh.Scale = Vector3.new(.8, .8, .8)
+
+            local function onActivated()
+                isEnabled = not isEnabled
+                tool.ToolTip = "Withering look, Status: " .. tostring(isEnabled)
+
+                if not isEnabled then
+                    return
+                end
+
+                while isEnabled do
+          task.wait()
+ts:Create(NovoBloco, TweenInfo.new(0.1), {Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, -6.05, 0)}):Play()
+ if game:GetService("Players").LocalPlayer.Character.Humanoid.Health <= 0 then
+isEnabled = false
+ end
+                end
+            end
+
+            tool.Activated:Connect(onActivated)
+
+            tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Dark Throw"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 10 then
+                lastPressTime = currentTime 
+       coun = coun + 1
+         local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://183463409"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(1.5)
+ task.wait(0.5)
+    part = Instance.new("Part", workspace)
+    part.Name = "Black Hole"
+    part.Size = Vector3.new(5, 5, 5)
+    part.Transparency = 0
+    part.Anchored = true
+    part.Shape = "Ball"
+    part.Material = "Neon"
+    part.Color = Color3.new(0, 0, 0)
+    part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    
+    part.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:TakeDamage(0.25)
+humanoid:ChangeState("FallingDown")
+humanoid.RootPart.CFrame = part.CFrame
+     if humanoid.Health <= 0 then
+wait(0.1)
+  humanoid:ChangeState("Dead")
+  humanoid.Parent:Destroy()
+     end
+  end
+    end)
+    
+    game.Debris:AddItem(part, 8)
+    
+    partTween = game:GetService("TweenService"):Create(part, TweenInfo.new(5, Enum.EasingStyle.Quad), {
+        Position = part.Position + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector * 250
+    })
+    partTween:Play()
+    
+blackholep = Instance.new("ParticleEmitter")
+blackholep.Name = "BlackHole Effect"
+blackholep.Enabled = true
+blackholep.Lifetime = NumberRange.new(1)
+blackholep.Rate = 50
+blackholep.Size = NumberSequence.new(4, 4)
+blackholep.Speed = NumberRange.new(0)
+blackholep.Texture = "rbxassetid://258128463"
+blackholep.Parent = part
+blackholep.LockedToPart = true
+blackholep.Color = ColorSequence.new(BrickColor.new("Really black").Color,BrickColor.new("Really black").Color)
+blackholep.RotSpeed = NumberRange.new(50)
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Awakening"
+tool.RequiresHandle = false
+
+local function tools()
+local tool = Instance.new("Tool")
+tool.Name = "Hand Stomp"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 8 then
+                lastPressTime = currentTime 
+         hum = game.Players.LocalPlayer.Character.Humanoid
+hand2 = Instance.new("Part", workspace)
+hand2.Size = Vector3.new(4,4,4)
+hand2.Anchored = true
+hand2.CanCollide = false
+hand2.CFrame = game.Players.LocalPlayer.Character.Torso.CFrame * CFrame.new(0, 0, 3)
+hand2.BrickColor = BrickColor.new("White")
+hand2.Material = "Slate"
+hand2.Transparency = 1
+hand2.CFrame = hum.RootPart.CFrame * CFrame.new(0, 10, -12)
+hand2.CFrame = hand2.CFrame * CFrame.Angles(4.7, math.rad(1), 0)
+game.Debris:AddItem(hand2, 7)
+
+hand2mesh = Instance.new("SpecialMesh",hand2)
+hand2mesh.MeshId = "rbxassetid://2899129749"
+hand2mesh.Scale = Vector3.new(.8, .8, .8)
+
+d = Instance.new("Sound", hand2)
+d.Name = "Hand Summon"
+d.SoundId = "rbxassetid://18950398569"
+d.Volume = 1
+d.PlaybackSpeed = 1
+d.Looped = false
+d:Play()
+
+partTween3 = game:GetService("TweenService"):Create(hand2, TweenInfo.new(1, Enum.EasingStyle.Quad), {
+        CFrame = hand2.CFrame - Vector3.new(0, 2, 0),
+        Transparency = 0
+    })
+    partTween3:Play()
+    partTween3.Completed:Wait()
+
+partTween = game:GetService("TweenService"):Create(hand2, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        CFrame = hand2.CFrame + Vector3.new(0, 15, 0)
+    })
+    partTween:Play()
+    partTween.Completed:Wait()
+    
+  partTween1 = game:GetService("TweenService"):Create(hand2, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {
+        CFrame = hand2.CFrame - Vector3.new(0, 24, 0)
+    })
+    partTween1:Play()
+   partTween1.Completed:Wait()
+   
+   s = Instance.new("Sound", hand2)
+s.Name = "Hand Earth Collide Sound"
+s.SoundId = "rbxassetid://3932587669"
+s.Volume = 1
+s.PlaybackSpeed = 1
+s.Looped = false
+s:Play()
+   
+   local foundHumanoids = {}
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= hum.Parent then
+        local distance = (v.RootPart.Position - hand2.Position).magnitude
+        if distance <= 30 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+ humanoid:TakeDamage(60)
+ humanoid.RootPart.Velocity = Vector3.new(0, 100, 0)
+ humanoid:ChangeState("FallingDown")
+    if humanoid.Health <= 0 then
+death = Instance.new("Sound", humanoid.Parent["Left Arm"])
+death.Name = "Death Sound"
+death.SoundId = "rbxassetid://5920004288"
+death.Volume = 2
+death.PlaybackSpeed = 0.9
+death.Looped = false
+death:Play()
+for i = 1, 5 do
+  blood = Instance.new("Part", humanoid.RootPart)
+  blood.Shape = "Ball"
+  blood.Size = Vector3.new(1, 1, 1)
+  blood.Color = Color3.new(1,0,0)
+  blood.Position = humanoid.RootPart.Position
+ end
+    end
+end
+
+wait(2)
+partTween2 = game:GetService("TweenService"):Create(hand2, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        CFrame = hand2.CFrame + Vector3.new(0, 10, 0)
+    })
+    partTween2:Play()
+    partTween2.Completed:Wait()
+partTween4 = game:GetService("TweenService"):Create(hand2, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Transparency = 1
+    })
+ partTween4:Play()
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Hands of Darkness"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+local hand = nil
+local bodyVelocity = nil
+
+tool.Activated:Connect(function()
+    local currentTime = tick()
+    if currentTime - lastPressTime >= 5 then
+        lastPressTime = currentTime
+ for i = 1, 3 do
+   wait(0.2)
+    coroutine.wrap(function()
+  if i == 1 then
+f = -3
+ elseif i == 2 then
+f = 0
+ elseif i == 3 then
+f = 3
+end
+        hand = Instance.new("Part", workspace)
+        hand.Size = Vector3.new(4, 4, 4)
+        hand.Anchored = false
+        hand.CanCollide = false
+        hand.CFrame = game.Players.LocalPlayer.Character.Torso.CFrame * CFrame.new(f, 0, 3)
+        hand.BrickColor = BrickColor.new("Black")
+        hand.Material = "Slate"
+        
+        blackholep = Instance.new("ParticleEmitter")
+blackholep.Name = "BlackHole Effect"
+blackholep.Enabled = true
+blackholep.Lifetime = NumberRange.new(1)
+blackholep.Rate = 50
+blackholep.Size = NumberSequence.new(1, 1)
+blackholep.Speed = NumberRange.new(0)
+blackholep.Texture = "rbxassetid://258128463"
+blackholep.Parent = hand
+blackholep.LockedToPart = false
+blackholep.Color = ColorSequence.new(BrickColor.new("Really black").Color,BrickColor.new("Really black").Color)
+blackholep.RotSpeed = NumberRange.new(50)
+        game.Debris:AddItem(hand, 6)
+        
+        hand.Touched:Connect(function(hit)
+    coroutine.wrap(function()
+humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid.RootPart and humanoid.Parent ~= game.Players.LocalPlayer.Character and humanoid.Health ~= 0 then
+  hand:Destroy()
+  humanoid:TakeDamage(15)
+  humanoid.RootPart.Velocity = hand.CFrame.LookVector * 200
+  end
+ end)()
+        end)
+
+        local handMesh = Instance.new("SpecialMesh", hand)
+        handMesh.MeshId = "rbxassetid://2899129749"
+        handMesh.Scale = Vector3.new(.8, .8, .8)
+
+        bodyVelocity = Instance.new("BodyVelocity", hand)
+        bodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+
+        repeat
+            local nearestHumanoid = nil
+            local nearestDistance = math.huge
+            for _, humanoidd in ipairs(workspace:GetDescendants()) do
+                if humanoidd:IsA("Humanoid") and humanoidd.Health ~= 0 and humanoidd.Parent ~= game.Players.LocalPlayer.Character then
+                    local distance = (humanoidd.RootPart.Position - hand.Position).Magnitude
+                    if distance < nearestDistance then
+                        nearestHumanoid = humanoidd
+                        nearestDistance = distance
+                    end
+                end
+            end
+
+            if nearestHumanoid then
+                bodyVelocity.Velocity = (nearestHumanoid.RootPart.Position - hand.Position).Unit * 250
+                hand.CFrame = CFrame.new(hand.Position, nearestHumanoid.RootPart.Position)
+            else
+                bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+            end
+
+            task.wait()
+        until not hand or not hand.Parent
+      end)()
+   end
+    end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Hand Rain"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 15 then
+                lastPressTime = currentTime 
+   for i = 1, 60 do
+ task.wait()
+ coroutine.wrap(function()
+rain = Instance.new("Part")
+rain.Size = Vector3.new(4, 4, 4)
+rain.Anchored = false
+rain.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(math.random(-200, 200), 100, math.random(-200, 200))
+rain.BrickColor = BrickColor.new("White")
+rain.Material = "Slate"
+rain.Orientation = Vector3.new(-90, 0, 0)
+rain.Parent = game.Workspace
+game.Debris:AddItem(rain, 6)
+
+mesh = Instance.new("SpecialMesh", rain)
+mesh.MeshId = "rbxassetid://2899129749"
+mesh.Scale = Vector3.new(.8, .8, .8)
+
+rain.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+ if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+ rain:Destroy()
+  humanoid:TakeDamage(30)
+  humanoid:ChangeState("FallingDown")
+  humanoid.RootPart.Velocity = Vector3.new(0, 200, 0)
+ end
+end)
+  end)()
+end  
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+end
+
+tool.Activated:Connect(function()
+tool:Destroy()
+mask.BrickColor = BrickColor.new("Red")
+coroutine.wrap(tools)()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
