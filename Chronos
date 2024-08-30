@@ -46,10 +46,10 @@ game.Players.LocalPlayer.Character.Humanoid.Health = game.Players.LocalPlayer.Ch
 game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 game.Players.LocalPlayer.Character.Humanoid.BreakJointsOnDeath = false
 
-for _,n in pairs(Character:GetChildren()) do
+for _,n in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if n:IsA("Accessory") then n:Remove() end
 end
-for _,x in pairs(Character:GetChildren()) do
+for _,x in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if x:IsA("Decal") then x:Remove() end
 end
 
