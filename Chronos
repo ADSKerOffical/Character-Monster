@@ -46,6 +46,13 @@ game.Players.LocalPlayer.Character.Humanoid.Health = game.Players.LocalPlayer.Ch
 game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 game.Players.LocalPlayer.Character.Humanoid.BreakJointsOnDeath = false
 
+for _,n in pairs(Character:GetChildren()) do
+if n:IsA("Accessory") then n:Remove() end
+end
+for _,x in pairs(Character:GetChildren()) do
+if x:IsA("Decal") then x:Remove() end
+end
+
 local tool = Instance.new("Tool")
 tool.Name = "White Spike"
 tool.RequiresHandle = false
