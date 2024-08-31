@@ -713,3 +713,173 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 end)
 
 tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Meta Light"
+tool.ToolTip = 'This technique is taken from one of the most powerful beings in the meta universe, namely "Meta Sphere" '
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 30 then
+                lastPressTime = currentTime 
+laserpos = Instance.new("Part", workspace)
+laserpos.Size = Vector3.new(1, 1, 1)
+laserpos.Transparency = 1
+laserpos.CanCollide = false
+laserpos.Anchored = true
+laserpos.CanTouch = false
+laserpos.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Debris:AddItem(laserpos, 4)
+
+laser = Instance.new("SurfaceLight", laserpos)
+laser.Range = 100
+laser.Color = Color3.fromRGB(255, 255, 255)
+laser.Brightness = 50
+laser.Shadows = true
+laser.Face = "Front"
+
+sound1 = Instance.new("Sound", laserpos)
+sound1.SoundId = "rbxassetid://515689563"
+sound1.Volume = 2
+sound1.TimePosition = 0.4
+sound1.PlaybackSpeed = 2
+sound1.Looped = false
+sound1:Play()
+
+sound2 = Instance.new("Sound", laserpos)
+sound2.SoundId = "rbxassetid://3802269741"
+sound2.Volume = 0.5
+sound2.PlaybackSpeed = 1
+sound2.Looped = false
+sound2:Play()
+
+sound3 = Instance.new("Sound", laserpos)
+sound3.SoundId = "rbxassetid://2959895271"
+sound3.Volume = 1
+sound3.PlaybackSpeed = 1
+sound3.Looped = false
+sound3:Play()
+
+sound4 = Instance.new("Sound", laserpos)
+sound4.SoundId = "rbxassetid://130113415"
+sound4.Volume = 1.5
+sound4.PlaybackSpeed = 1
+sound4.Looped = false
+sound4:Play()
+
+sound5 = Instance.new("Sound", laserpos)
+sound5.SoundId = "rbxassetid://28256390"
+sound5.Volume = 1.5
+sound5.PlaybackSpeed = 1
+sound5.Looped = false
+sound5:Play()
+
+partTweenn1 = game:GetService("TweenService"):Create(laser, TweenInfo.new(1, Enum.EasingStyle.Linear), {
+        Brightness = 0
+    })
+    partTweenn1:Play()
+
+    player = game.Players.LocalPlayer
+    char = player.Character or player.CharacterAdded:Wait()
+    hu = char.Humanoid
+    humanoidRootPart = char:WaitForChild("HumanoidRootPart")
+    playerForward = humanoidRootPart.CFrame.LookVector
+    startPos = humanoidRootPart.Position + 1 * playerForward
+    playerCFrame = humanoidRootPart.CFrame
+
+    numUzumaki = 7
+    spacing = 5
+    sideOffset = 4
+    
+    hitboxfolder = Instance.new("Folder", workspace)
+
+    for i = 1, numUzumaki do
+        hitbox1 = Instance.new("Part", hitboxfolder)
+        hitbox1.Size = Vector3.new(5, 5, 5)
+        hitbox1.CanCollide = false
+        hitbox1.Anchored = true
+        hitbox1.Transparency = 1
+        hitbox1.Position = startPos + ((i - 1) * spacing * playerForward)
+        hitbox1.Touched:Connect(function(hit)
+humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:ChangeState("Dead")
+humanoid:TakeDamage(math.huge)
+humanoid.Parent.PrimaryPart.CanCollide = false
+humanoid.Parent.PrimaryPart.Anchored = true
+
+for _, part in pairs(humanoid.Parent:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            propTweenn1 = game:GetService("TweenService"):Create(part, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Transparency = 1
+    })
+    propTweenn1:Play()
+                        end
+                    end
+
+  end
+        end)
+        game.Debris:AddItem(hitbox1, 0.2)
+    end
+
+    for i = 1, numUzumaki do
+        hitbox2 = Instance.new("Part", hitboxfolder)
+        hitbox2.Size = Vector3.new(5, 5, 5)
+        hitbox2.CanCollide = false
+        hitbox2.Anchored = true
+        hitbox2.Transparency = 1
+        hitbox2.Position = startPos - playerCFrame:VectorToWorldSpace(Vector3.new(sideOffset, 0, 0)) + ((i - 1) * spacing * playerForward)
+        hitbox2.Touched:Connect(function(hit)
+humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:ChangeState("Dead")
+humanoid:TakeDamage(math.huge)
+humanoid.Parent.PrimaryPart.CanCollide = false
+humanoid.Parent.PrimaryPart.Anchored = true
+for _, part in pairs(humanoid.Parent:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            propTweenn2 = game:GetService("TweenService"):Create(part, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Transparency = 1
+    })
+    propTweenn2:Play()
+                        end
+                    end
+                    
+  end
+        end)
+        game.Debris:AddItem(hitbox2, 0.2)
+    end
+
+    for i = 1, numUzumaki do
+        hitbox3 = Instance.new("Part", hitboxfolder)
+        hitbox3.Size = Vector3.new(5, 5, 5)
+        hitbox3.CanCollide = false
+        hitbox3.Anchored = true
+        hitbox3.Transparency = 1
+        hitbox3.Position = startPos + playerCFrame:VectorToWorldSpace(Vector3.new(sideOffset, 0, 0)) + ((i - 1) * spacing * playerForward)
+        hitbox3.Touched:Connect(function(hit)
+humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:ChangeState("Dead")
+humanoid:TakeDamage(math.huge)
+humanoid.Parent.PrimaryPart.CanCollide = false
+humanoid.Parent.PrimaryPart.Anchored = true
+for _, part in pairs(humanoid.Parent:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            propTweenn3 = game:GetService("TweenService"):Create(part, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Transparency = 1
+    })
+    propTweenn3:Play()
+                        end
+                    end
+                    
+  end
+        end)
+        game.Debris:AddItem(hitbox3, 0.2)
+    end 
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
