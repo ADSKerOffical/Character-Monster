@@ -511,3 +511,205 @@ k:Stop()
 end)
 
 tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Excess"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 30 then
+                lastPressTime = currentTime 
+game.Players.LocalPlayer.Character.Humanoid.RootPart.Anchored = true
+local assetId = tonumber(15775618434)
+ if not assetId then
+   warn("Invalid asset ID")
+   return
+  end
+local user = game.Players.LocalPlayer
+ 
+ima = game:GetObjects("rbxassetid://" .. assetId)[1]
+ima.Parent = workspace
+ima.Size = Vector3.new(0, 0, 0)
+ima.Transparency = 0
+ima.Anchored = true
+ima.Material = "Neon"
+ima.Color = Color3.fromRGB(255, 255, 255)
+ima.CanCollide = false
+ima.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+game.Debris:AddItem(ima, 15)
+
+light1 = Instance.new("PointLight", ima)
+light1.Color = Color3.fromRGB(255, 255, 255)
+light1.Range = 500
+light1.Brightness = 10
+
+soi = Instance.new("Sound", workspace)
+soi.SoundId = "rbxassetid://7602599324"
+soi.Volume = 3
+soi.TimePosition = 1
+soi.PlaybackSpeed = 1
+soi.Looped = false
+soi:Play()
+
+foi = Instance.new("Sound", workspace)
+foi.SoundId = "rbxassetid://2018386608"
+foi.Volume = 1
+foi.PlaybackSpeed = 1
+foi.Looped = true
+foi:Play()
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - ima.Position).magnitude
+        if distance <= 100 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoids in pairs(foundHumanoids) do
+ humanoids:ChangeState("Dead")
+ humanoids:TakeDamage(math.huge)
+ humanoids.RootPart.Velocity = humanoids.RootPart.CFrame.LookVector * -500 + Vector3.new(0, 200, 0)
+end
+
+emitter = Instance.new("ParticleEmitter", ima)
+emitter.Rate = 1000
+emitter.Lifetime = NumberRange.new(1, 1) 
+emitter.Enabled = true
+
+emitter.Texture = "rbxassetid://13240623019" 
+numberKeypoints = {
+ NumberSequenceKeypoint.new(0, 1), 
+ NumberSequenceKeypoint.new(0.1, 0), 
+ NumberSequenceKeypoint.new(0.5, 0.25), 
+ NumberSequenceKeypoint.new(1, 1), 
+}
+emitter.Transparency = NumberSequence.new(numberKeypoints)
+emitter.LightEmission = 1 
+emitter.LightInfluence = 0 
+
+emitter.EmissionDirection = Enum.NormalId.Front 
+emitter.Speed = NumberRange.new(0, 0) 
+emitter.Drag = 0 
+emitter.VelocitySpread = NumberRange.new(0, 0)
+emitter.VelocityInheritance = 0 
+emitter.Acceleration = Vector3.new(0, 0, 0)
+emitter.LockedToPart = false 
+emitter.SpreadAngle = Vector2.new(0, 0) 
+
+numberKeypoints2 = {
+ NumberSequenceKeypoint.new(0, 0), 
+ NumberSequenceKeypoint.new(1, 10), 
+}
+emitter.Size = NumberSequence.new(numberKeypoints2)
+emitter.ZOffset = -1 
+emitter.Rotation = NumberRange.new(0, 360) 
+emitter.RotSpeed = NumberRange.new(0)
+
+ima.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:ChangeState("Dead")
+humanoid:TakeDamage(math.huge)
+humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -1000 + Vector3.new(0, 200, 0)
+Highlight = Instance.new("Highlight")
+Highlight.Parent = humanoid.Parent
+Highlight.Adornee = humanoid.Parent
+Highlight.FillTransparency = 0
+Highlight.FillColor = Color3.fromRGB(255,255,255)
+Highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+Highlight.OutlineTransparency = 0
+Highlight.DepthMode = "Occluded"
+  end
+end)
+
+partTweenn1 = game:GetService("TweenService"):Create(ima, TweenInfo.new(1.5, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(320, 800, 320),
+        Position = ima.Position + Vector3.new(0, 400, 0)
+    })
+    partTweenn1:Play()
+    
+    emitter.Size = NumberSequence.new({NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(1, 100)})
+       wait(5)
+    emitter.Enabled = false
+    partTweenn2 = game:GetService("TweenService"):Create(ima, TweenInfo.new(1.5, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(0, 0, 0),
+        Position = ima.Position - Vector3.new(0, 400, 0)
+    })
+    partTweenn2:Play()
+    partTweenn2.Completed:Wait()
+ soi:Stop()
+ foi:Stop()
+ tyu = Instance.new("Sound", workspace)
+ tyu.SoundId = "rbxassetid://1909632970"
+ tyu.Volume = 3
+ tyu.PlaybackSpeed = 1
+ tyu.Looped = false
+ tyu:Play()
+ 
+ spawn(function()
+   for i = 1, 50 do
+object2 = Instance.new("Part", workspace)
+object2.Size = Vector3.new(5, 5, 5)
+object2.Transparency = 0
+object2.Anchored = false
+object2.Material = "Neon"
+object2.Shape = "Wedge"
+object2.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(math.random(-300, 300), 0, math.random(-300, 300))
+game.Debris:AddItem(object2, 10)
+object2.Velocity = Vector3.new(0, 300, 0)
+
+object2.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+   if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+ humanoid:ChangeState("Dead")
+ humanoid.RootPart.Velocity = Vector3.new(0, 200, 0)
+Highlight = Instance.new("Highlight")
+Highlight.Parent = humanoid.Parent
+Highlight.Adornee = humanoid.Parent
+Highlight.FillTransparency = 0
+Highlight.FillColor = Color3.fromRGB(255,255,255)
+Highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+Highlight.OutlineTransparency = 0
+Highlight.DepthMode = "Occluded"
+   end
+end)
+
+   end
+ end)
+ 
+ pa = Instance.new("Part", workspace)
+ pa.Size = Vector3.new(0, 0, 0)
+ pa.Transparency = 0
+ pa.Anchored = true
+ pa.Color = Color3.fromRGB(255, 255, 255)
+ pa.Shape = "Ball"
+ pa.CanCollide = false
+ pa.Material = "Neon"
+ pa.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+ game.Debris:AddItem(pa, 6)
+ 
+ pa.Touched:Connect(function(hit)
+humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+   if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:ChangeState("Dead")
+humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -500 + Vector3.new(0, 100, 0)
+   end
+ end)
+ 
+ partTweenn3 = game:GetService("TweenService"):Create(pa, TweenInfo.new(1.5, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(1000, 1000, 1000),
+        Transparency = 1
+    })
+    partTweenn3:Play()
+    partTweenn3.Completed:Wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
