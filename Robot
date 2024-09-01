@@ -1,0 +1,446 @@
+character = game.Players.LocalPlayer.Character
+
+character.Head.Transparency = 1
+character.Torso.Transparency = 1
+character["Left Arm"].Transparency = 1
+character["Right Arm"].Transparency = 1
+character["Left Leg"].Transparency = 1
+character["Right Leg"].Transparency = 1
+
+body = Instance.new("Folder", workspace)
+
+for _,n in pairs(character:GetChildren()) do
+if n:IsA("Accessory") then n:Remove() end
+end
+for _,x in pairs(character:GetChildren()) do
+if x:IsA("Decal") then x:Remove() end
+end
+
+limb1 = Instance.new("Part", body)
+limb2 = Instance.new("Part", body)
+limb3 = Instance.new("Part", body)
+limb4 = Instance.new("Part", body)
+head = Instance.new("Part", body)
+torso = Instance.new("Part", body)
+
+limb1.Size = Vector3.new(1, 2, 1)
+limb1.Color = Color3.fromRGB(255, 255, 255)
+limb1.Material = "DiamondPlate"
+limb1.CanCollide = false
+limb1.Anchored = false
+
+limb2.Size = Vector3.new(1, 2, 1)
+limb2.Color = Color3.fromRGB(255, 255, 255)
+limb2.Material = "DiamondPlate"
+limb2.CanCollide = false
+limb2.Anchored = false
+
+limb3.Size = Vector3.new(1, 1.9, 1)
+limb3.Color = Color3.fromRGB(255, 255, 255)
+limb3.Material = "DiamondPlate"
+limb3.CanCollide = false
+limb3.Anchored = false
+
+limb4.Size = Vector3.new(1, 1.9, 1)
+limb4.Color = Color3.fromRGB(255, 255, 255)
+limb4.Material = "DiamondPlate"
+limb4.CanCollide = false
+limb4.Anchored = false
+
+torso.Size = Vector3.new(2, 2, 1)
+torso.Color = Color3.fromRGB(255, 255, 255)
+torso.Material = "DiamondPlate"
+torso.CanCollide = false
+torso.Anchored = false
+
+head.Size = Vector3.new(1, 1, 1)
+head.Color = Color3.fromRGB(255, 255, 252)
+head.Material = "DiamondPlate"
+head.CanCollide = false
+head.Anchored = false
+
+weld1 = Instance.new("Weld", character.Head)
+weld1.Part0 = character.Head
+weld1.Part1 = head
+
+weld2 = Instance.new("Weld", character.Torso)
+weld2.Part0 = character.Torso
+weld2.Part1 = torso
+
+weld1 = Instance.new("Weld", character["Left Arm"])
+weld1.Part0 = character["Left Arm"]
+weld1.Part1 = limb1
+
+weld1 = Instance.new("Weld", character["Right Arm"])
+weld1.Part0 = character["Right Arm"]
+weld1.Part1 = limb2
+
+weld1 = Instance.new("Weld", character["Left Leg"])
+weld1.Part0 = character["Left Leg"]
+weld1.Part1 = limb3
+
+weld1 = Instance.new("Weld", character["Right Leg"])
+weld1.Part0 = character["Right Leg"]
+weld1.Part1 = limb4
+
+local previousHealth = character.Humanoid.Health
+character.Humanoid.HealthChanged:Connect(function(newHealth)
+    if newHealth < previousHealth then
+ a = math.random(1, 3)
+  if a == 1 then
+sound1 = Instance.new("Sound", torso)
+sound1.SoundId = "rbxassetid://9116673678"
+sound1.Volume = 1
+sound1.PlaybackSpeed = 1
+sound1.Looped = false
+sound1:Play()
+  elseif a == 2 then
+sound2 = Instance.new("Sound", torso)
+sound2.SoundId = "rbxassetid://6700004586"
+sound2.Volume = 1
+sound2.PlaybackSpeed = 1
+sound2.Looped = false
+sound2:Play()
+  elseif a == 3 then
+sound3 = Instance.new("Sound", torso)
+sound3.SoundId = "rbxassetid://8917041751"
+sound3.Volume = 1
+sound3.PlaybackSpeed = 1
+sound3.Looped = false
+sound3:Play()
+  end
+        previousHealth = newHealth
+    end
+end)
+
+local tool = Instance.new("Tool")
+tool.Name = "Metal Impact"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 1 then
+                lastPressTime = currentTime 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://203875401"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(2)
+
+sound = Instance.new("Sound", limb2)
+sound.SoundId = "rbxassetid://223175756"
+sound.Volume = 1
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+sound4 = Instance.new("Sound", limb2)
+sound4.SoundId = "rbxassetid://169310455"
+sound4.Volume = 1
+sound4.PlaybackSpeed = 1
+sound4.Looped = false
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - Usuario.Character.HumanoidRootPart.Position).magnitude
+        if distance <= 6 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+ humanoid:TakeDamage(10)
+ humanoid.RootPart.Velocity = character.HumanoidRootPart.CFrame.LookVector * 100
+ humanoid:ChangeState("FallingDown")
+ sound4:Play()
+end
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Throw Metal"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 6 then
+                lastPressTime = currentTime 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://31020869"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(1)
+ task.wait(1)
+throw = Instance.new("Part", workspace)
+throw.Size = Vector3.new(4, 4, 4)
+throw.Transparency = 0
+throw.Anchored = false
+throw.CFrame = head.CFrame * CFrame.new(0, 2, 0)
+throw.Material = "DiamondPlate"
+throw.Velocity = character.HumanoidRootPart.CFrame.LookVector * 120
+game.Debris:AddItem(throw, 10)
+
+throw.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+   if humanoid.RootPart and humanoid.Parent ~= character then
+humanoid.RootPart.Velocity = throw.CFrame.LookVector * 200
+humanoid:ChangeState("FallingDown")
+   end
+end)
+  task.wait(0.6)
+throw.CanTouch = false
+ task.wait(2.8)
+throw.Transparency = 1
+throw.CanCollide = false
+throw.Anchored = true
+
+for i = 1, 10 do
+partic = Instance.new("Part", workspace)
+partic.Size = Vector3.new(1, 1, 1)
+partic.Transparency = 0
+partic.Anchored = false
+partic.Material = throw.Material
+partic.Position = throw.Position
+partic.Velocity = Vector3.new(math.random(-200, 200), math.random(-200, 200), math.random(-200, 200))
+game.Debris:AddItem(partic, 6)
+end
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - throw.Position).magnitude
+        if distance <= 20 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+ humanoid:TakeDamage(30)
+ humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -200
+ humanoid:ChangeState("FallingDown")
+end
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Ground Slam"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 15 then
+                lastPressTime = currentTime 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://97170520"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(1)
+wait(0.5)
+
+sound = Instance.new("Sound", game.Players.LocalPlayer.Character.Torso)
+sound.SoundId = "rbxassetid://165969964"
+sound.Volume = 2
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+local assetId = tonumber(310615620)
+impact = game:GetObjects("rbxassetid://" .. assetId)[1]
+impact.Parent = workspace
+impact.Transparency = 0
+impact.Size = Vector3.new(0, 0, 0)
+impact.Position = game.Players.LocalPlayer.Character.Torso.Position
+impact.Anchored = true
+impact.CanCollide = false
+game.Debris:AddItem(impact, 7)
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - Usuario.Character.HumanoidRootPart.Position).magnitude
+        if distance <= 50 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+ humanoid:TakeDamage(40)
+humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -100 + Vector3.new(0, 100, 0)
+end
+
+partTweenn1 = game:GetService("TweenService"):Create(impact, TweenInfo.new(1.2, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(100, 10, 100),
+        Transparency = 1
+    })
+    partTweenn1:Play()
+    partTweenn1.Completed:Wait()
+    impact.CanTouch = false
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Force Field"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 15 then
+                lastPressTime = currentTime 
+ field = Instance.new("Part", workspace)
+field.Size = Vector3.new(0,0,0)
+field.Transparency = 0
+field.Color = Color3.fromRGB(0, 162, 252)
+field.Material = "ForceField"
+field.Shape = "Ball"
+field.Anchored = true
+field.CanCollide = false
+field.Position = game.Players.LocalPlayer.Character.Torso.Position
+game.Debris:AddItem(field, 20)
+
+field.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+   if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:TakeDamage(1)
+humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -120 + Vector3.new(0, 70, 0)
+sound = Instance.new("Sound", field)
+sound.SoundId = "rbxassetid://2048662478"
+sound.Volume = 1
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+   end
+end)
+
+sound = Instance.new("Sound", field)
+sound.SoundId = "rbxassetid://87767777"
+sound.Volume = 1
+sound.PlaybackSpeed = 2
+sound.Looped = false
+sound:Play()
+
+partTweenn1 = game:GetService("TweenService"):Create(field, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(20, 20, 20)
+    })
+    partTweenn1:Play()
+
+spawn(function()
+   repeat game:GetService("RunService").Heartbeat:Wait()
+ field.Position = game.Players.LocalPlayer.Character.Torso.Position
+ game.Players.LocalPlayer.Character.Humanoid.Health += 1
+   until field.Parent == nil
+end)
+
+task.wait(10)
+
+partTweenn2 = game:GetService("TweenService"):Create(field, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(0, 0, 0)
+    })
+    partTweenn2:Play()
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local plr = game.Players.LocalPlayer
+tool = Instance.new("Tool", plr.Backpack)
+tool.Name = "AXI-438"
+tool.ToolTip = "This bomb was created in a laboratory for hunting, but people started using it against their own kind, are people animals?"
+tool.Grip = CFrame.Angles(1.5, math.rad(0), 0)
+
+handle = Instance.new("Part", tool)
+handle.Name = "Handle"
+handle.Size = Vector3.new(2, 2, 2)
+handle.Shape = Enum.PartType.Ball
+handle.Color = Color3.fromRGB(64, 64, 64)
+handle.Material = Enum.Material.Neon
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 20 then
+                lastPressTime = currentTime
+bomb = Instance.new("Part", workspace)
+bomb.Anchored = false
+bomb.Material = "Neon"
+bomb.Color = handle.Color
+bomb.Position = handle.Position
+bomb.Shape = "Ball"
+bomb.Size = handle.Size
+game.Debris:AddItem(bomb, 10)
+
+ task.wait(5)
+bomb.CanCollide = false
+bomb.CanTouch = false
+bomb.Transparency = 1
+
+field = Instance.new("Part", workspace)
+field.Size = Vector3.new(0,0,0)
+field.Transparency = 0
+field.Color = Color3.fromRGB(0, 162, 252)
+field.Material = "ForceField"
+field.Shape = "Ball"
+field.Anchored = true
+field.CanCollide = false
+field.Position = bomb.Position
+game.Debris:AddItem(field, 20)
+
+sound = Instance.new("Sound", workspace)
+sound.SoundId = "rbxassetid://550965268"
+sound.Volume = 5
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character and v.Health > 0 then
+        local distance = (v.RootPart.Position - Usuario.Character.HumanoidRootPart.Position).magnitude
+        if distance <= 50 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+  for _, part in pairs(humanoid.Parent:GetChildren()) do
+    coroutine.wrap(function()
+                        if part:IsA("BasePart") then
+                            part.Anchored = true
+                            task.wait(10)
+                            part.Anchored = false
+                        end
+                       end)()
+                    end
+end
+
+partTweenn1 = game:GetService("TweenService"):Create(field, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(100, 100, 100)
+    })
+    partTweenn1:Play()
+    task.wait(10)
+    partTweenn2 = game:GetService("TweenService"):Create(field, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(0, 0, 0)
+    })
+    partTweenn2:Play()
+   end
+ end)
+ 
+ tool.Parent = game.Players.LocalPlayer.Character
