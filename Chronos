@@ -883,3 +883,320 @@ for _, part in pairs(humanoid.Parent:GetChildren()) do
 end)
 
 tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Summon Friend"
+tool.RequiresHandle = false
+tool.ToolTip = "I hope my friend Meta Sphere help me"
+
+tool.Activated:Connect(function()
+ tool:Destroy()
+ local assetId = tonumber(310615620)
+if not assetId then
+  warn("Invalid asset ID")
+  return
+end
+
+local user = game.Players.LocalPlayer
+
+meta = game:GetObjects("rbxassetid://" .. assetId)[1]
+meta.Parent = workspace
+meta.Name = "Meta Sphere"
+meta.Size = Vector3.new(4, 4, 4)
+meta.Position = game.Players.LocalPlayer.Character.Torso.Position
+meta.Anchored = true
+meta.CanCollide = false
+meta.Transparency = 0
+meta.Material = "Neon"
+
+sound1 = Instance.new("Sound", meta)
+sound1.SoundId = "rbxassetid://3619734707"
+sound1.Volume = 0.5
+sound1.PlaybackSpeed = 1
+sound1.Looped = false
+sound1:Play()
+
+sound2 = Instance.new("Sound", meta)
+sound2.SoundId = "rbxassetid://705837992"
+sound2.Volume = 0.35
+sound2.PlaybackSpeed = 1
+sound2.Looped = false
+sound2:Play()
+
+fire = Instance.new("ParticleEmitter")
+fire.Enabled = true
+fire.Lifetime = NumberRange.new(1, 1)
+fire.Rate = 10
+
+local colorKeypoints = {
+	ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+	ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1)),
+}
+fire.Color = ColorSequence.new(colorKeypoints)
+
+fire.Rotation = NumberRange.new(0, 360)
+fire.RotSpeed = NumberRange.new(0, 180)
+
+local numberKeypoints2 = {
+ NumberSequenceKeypoint.new(0, 0), 
+ NumberSequenceKeypoint.new(1, 7), 
+}
+fire.Size = NumberSequence.new(numberKeypoints2)
+
+fire.Speed = NumberRange.new(0, 0)
+fire.LightEmission = 10
+fire.Brightness = 100
+fire.ZOffset = -1 
+fire.EmissionDirection = Enum.NormalId.Front 
+fire.Drag = 0 
+fire.VelocitySpread = NumberRange.new(0, 0)
+fire.VelocityInheritance = 0 
+
+local numberKeypoints = {
+ NumberSequenceKeypoint.new(0, 1), 
+ NumberSequenceKeypoint.new(0.1, 0), 
+ NumberSequenceKeypoint.new(0.5, 0.25), 
+ NumberSequenceKeypoint.new(1, 1), 
+}
+fire.Transparency = NumberSequence.new(numberKeypoints)
+
+fire.Acceleration = Vector3.new(0, 0, 0)
+fire.SpreadAngle = Vector2.new(0, 0)
+fire.Texture = "rbxassetid://257173628"
+fire.LockedToPart = true
+fire.Parent = meta
+
+local flightSpeed = 0.05
+spawn(function()
+repeat task.wait()
+    local targetPosition = game.Players.LocalPlayer.Character.Head.Position + Vector3.new(0, 7, 0)
+    meta.Position = meta.Position:lerp(targetPosition, flightSpeed)
+until meta.Parent == nil
+end)
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "Meta Control"
+ScreenGui.Enabled = false
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local Button = Instance.new("TextButton")
+Button.Name = "Button"
+Button.Size = UDim2.new(0.07, 0.07, 0.07, 7)
+Button.Position = UDim2.new(0.86, 0, 0.4, 0)
+Button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button.TextScaled = true
+Button.Text = "Light Radiation"
+Button.Parent = ScreenGui
+
+Button.MouseButton1Click:Connect(function()
+    poin = Instance.new("PointLight", meta)
+    poin.Range = 100
+    poin.Brightness = 20
+    poin.Color = Color3.new(1, 1, 1)
+    poin.Shadows = true
+    
+    sound1 = Instance.new("Sound", meta)
+sound1.SoundId = "rbxassetid://515689563"
+sound1.Volume = 2
+sound1.TimePosition = 0.4
+sound1.PlaybackSpeed = 2
+sound1.Looped = false
+sound1:Play()
+
+sound2 = Instance.new("Sound", meta)
+sound2.SoundId = "rbxassetid://3802269741"
+sound2.Volume = 0.5
+sound2.PlaybackSpeed = 1
+sound2.Looped = false
+sound2:Play()
+
+sound3 = Instance.new("Sound", meta)
+sound3.SoundId = "rbxassetid://2959895271"
+sound3.Volume = 1
+sound3.PlaybackSpeed = 1
+sound3.Looped = false
+sound3:Play()
+
+sound4 = Instance.new("Sound", meta)
+sound4.SoundId = "rbxassetid://130113415"
+sound4.Volume = 1.5
+sound4.PlaybackSpeed = 1
+sound4.Looped = false
+sound4:Play()
+
+sound5 = Instance.new("Sound", meta)
+sound5.SoundId = "rbxassetid://28256390"
+sound5.Volume = 1.5
+sound5.PlaybackSpeed = 1
+sound5.Looped = false
+sound5:Play()
+
+propTweenn1 = game:GetService("TweenService"):Create(poin, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {
+        Brightness = 0
+    })
+    propTweenn1:Play()
+    
+    local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - meta.Position).magnitude
+        if distance <= 70 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+  for _, humanoid in pairs(foundHumanoids) do
+humanoid.Health = 0
+humanoid:ChangeState("Dead")
+for _, part in pairs(humanoid.Parent:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            propTweenn3 = game:GetService("TweenService"):Create(part, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Transparency = 1
+    })
+    propTweenn3:Play()
+                        end
+                    end
+  end
+end)
+
+local Button1 = Instance.new("TextButton")
+Button1.Name = "Button"
+Button1.Size = UDim2.new(0.07, 0.07, 0.07, 7)
+Button1.Position = UDim2.new(0.86, 0, 0.5, 0)
+Button1.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Button1.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button1.TextScaled = true
+Button1.Text = "Divine Hand"
+Button1.Parent = ScreenGui
+
+Button1.MouseButton1Click:Connect(function()
+        hand = Instance.new("Part", workspace)
+        hand.Size = Vector3.new(4, 4, 4)
+        hand.Anchored = false
+        hand.CanCollide = false
+        hand.CFrame = meta.CFrame
+        hand.BrickColor = BrickColor.new("White")
+        hand.Material = "Neon"
+        game.Debris:AddItem(hand, 10)
+        
+        handMesh = Instance.new("SpecialMesh", hand)
+        handMesh.MeshId = "rbxassetid://2899129749"
+        handMesh.Scale = Vector3.new(.8, .8, .8)
+        
+        poik = Instance.new("PointLight", hand)
+        poik.Range = 2
+        poik.Brightness = 100
+        poik.Color = Color3.new(1,1,1)
+        poik.Shadows = true
+        
+        spot1 = Instance.new("SpotLight", hand)
+        spot1.Range = 30
+        spot1.Brightness = 3
+        spot1.Color = Color3.new(1,1,1)
+        spot1.Shadows = true
+        spot1.Face = "Bottom"
+        spot1.Angle = 60
+        
+        hand.Touched:Connect(function(hit)
+     humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+       if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+   humanoid:ChangeState("Dead")
+   humanoid:TakeDamage(math.huge)
+   for _, part in pairs(humanoid.Parent:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            partTweenn1 = game:GetService("TweenService"):Create(part, TweenInfo.new(1, Enum.EasingStyle.Linear), {
+        Transparency = 1
+    })
+    partTweenn1:Play()
+                        end
+                    end
+       end
+        end)
+
+        bodyVelocity = Instance.new("BodyVelocity", hand)
+        bodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+        
+        local nearestHumanoid = nil
+            local nearestDistance = math.huge
+            for _, humanoidd in ipairs(workspace:GetDescendants()) do
+                if humanoidd:IsA("Humanoid") and humanoidd.Health ~= 0 and humanoidd.Parent ~= game.Players.LocalPlayer.Character and humanoidd.Health ~= 0 then
+                    local distance = (humanoidd.RootPart.Position - hand.Position).Magnitude
+                    if distance < nearestDistance then
+                        nearestHumanoid = humanoidd
+                        nearestDistance = distance
+                    end
+                end
+            end
+
+            if nearestHumanoid then
+                bodyVelocity.Velocity = (nearestHumanoid.RootPart.Position - hand.Position).Unit * 250
+                hand.CFrame = CFrame.new(hand.Position, nearestHumanoid.RootPart.Position)
+            else
+                bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+            end
+end)
+
+local Button2 = Instance.new("TextButton")
+Button2.Name = "Button"
+Button2.Size = UDim2.new(0.07, 0.07, 0.07, 7)
+Button2.Position = UDim2.new(0.86, 0, 0.6, 0)
+Button2.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Button2.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button2.TextScaled = true
+Button2.Text = "Shockwave"
+Button2.Parent = ScreenGui
+
+Button2.MouseButton1Click:Connect(function()
+    tyu = Instance.new("Sound", workspace)
+ tyu.SoundId = "rbxassetid://1909632970"
+ tyu.Volume = 3
+ tyu.PlaybackSpeed = 1
+ tyu.Looped = false
+ tyu:Play()
+ 
+ pa = Instance.new("Part", workspace)
+ pa.Size = Vector3.new(0, 0, 0)
+ pa.Transparency = 0
+ pa.Anchored = true
+ pa.Color = Color3.fromRGB(255, 255, 255)
+ pa.Shape = "Ball"
+ pa.CanCollide = false
+ pa.Material = "Neon"
+ pa.Position = meta.Position
+ game.Debris:AddItem(pa, 6)
+ 
+ pa.Touched:Connect(function(hit)
+humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+   if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:ChangeState("FallingDown")
+humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -500 + Vector3.new(0, 100, 0)
+   end
+ end)
+ 
+ partTweenn3 = game:GetService("TweenService"):Create(pa, TweenInfo.new(1.5, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(1000, 1000, 1000),
+        Transparency = 1
+    })
+    partTweenn3:Play()
+    partTweenn3.Completed:Wait()
+end)
+
+local tool = Instance.new("Tool")
+tool.Name = "Meta Sphere Control"
+tool.RequiresHandle = false
+
+tool.Equipped:Connect(function()
+  ScreenGui.Enabled = true
+end)
+
+tool.Unequipped:Connect(function()
+ ScreenGui.Enabled = false
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
