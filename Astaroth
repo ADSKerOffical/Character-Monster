@@ -1,0 +1,411 @@
+local tool = Instance.new("Tool")
+tool.Name = "Projectiles of Darkness"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 2 then
+                lastPressTime = currentTime
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local mouse = game.Players.LocalPlayer:GetMouse()
+local workspace = game:GetService("Workspace")
+
+    local hit = mouse.Hit
+    local distance = (hit.Position - LocalPlayer.Character.Torso.Position).Magnitude
+    local targetPosition = hit.Position
+    if distance > 200 then
+        local direction = (hit.Position - LocalPlayer.Character.Torso.Position).Unit
+        targetPosition = LocalPlayer.Character.Torso.Position + direction * 200
+    end
+
+    proj = Instance.new("Part", workspace)
+    proj.Size = Vector3.new(1, 1, 1)
+    proj.Transparency = 0
+    proj.Locked = true
+    proj.Shape = "Ball"
+    proj.Material = "ForceField"
+    proj.Color = Color3.new(0, 0, 0)
+    proj.Anchored = false
+    proj.CanCollide = false
+    proj.CFrame = game.Players.LocalPlayer.Character.Torso.CFrame
+    
+    sound = Instance.new("Sound", proj)
+    sound.SoundId = "rbxassetid://7453869123"
+    sound.Volume = 2
+    sound.PlaybackSpeed = 1
+    sound.Looped = false
+    sound:Play()
+    
+    proj.Touched:Connect(function(hit)
+  humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+   if humanoid and humanoid.Parent ~= LocalPlayer.Character then
+ humanoid:TakeDamage(math.huge)
+ for _, part in pairs(humanoid.Parent:GetChildren()) do
+                        if part:IsA("BasePart") then
+                          part.CanTouch = false
+                          partTweenn2 = game:GetService("TweenService"):Create(part, TweenInfo.new(1, Enum.EasingStyle.Linear), {
+        Transparency = 1
+    })
+    partTweenn2:Play()
+                        end
+                    end
+   end
+    end)
+
+    local tweenService = game:GetService("TweenService")
+
+    local targetCFrame = CFrame.new(targetPosition)
+    local partTweenn1 = tweenService:Create(proj, TweenInfo.new(1.5, Enum.EasingStyle.Quad), {
+        Size = Vector3.new(15, 15, 15),
+        CFrame = targetCFrame,
+        Transparency = 1
+    })
+    partTweenn1:Play()
+
+    partTweenn1.Completed:Connect(function()
+        proj:Destroy()
+    end)
+   end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Black Spike"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ coroutine.wrap(function()
+ local assetId = tonumber(8979024870)
+  if not assetId then
+   warn("Invalid asset ID")
+   return
+  end
+local user = game.Players.LocalPlayer
+
+oppp = math.random(1, 2)
+projectile = game:GetObjects("rbxassetid://" .. assetId)[1]
+projectile.Size = Vector3.new(2.5,1,2.5)
+projectile.Anchored = true
+projectile.Color = Color3.fromRGB(0, 0, 0)
+        projectile.Name = "EnergyShip"
+        projectile.Material = "Neon"
+        projectile.CanCollide = false
+        projectile.Parent = workspace
+        game.Debris:AddItem(projectile, 3)
+if oppp == 1 then
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://203876950"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(2)
+        projectile.CFrame = user.Character.PrimaryPart.CFrame * CFrame.new(1, 0, -4)
+        projectile.CFrame = projectile.CFrame * CFrame.Angles(math.rad(-90), 0, 0.4)
+else
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://203875401"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(2)
+        projectile.CFrame = user.Character.PrimaryPart.CFrame * CFrame.new(-1, 0, -4)
+        projectile.CFrame = projectile.CFrame * CFrame.Angles(math.rad(-90), 0, -0.4)
+end
+        
+   projectile.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid and humanoid.Parent ~= user.Character then
+humanoid:TakeDamage(math.huge)
+humanoid:ChangeState("Dead")
+  end
+   end)
+   
+   exec = Instance.new("Sound", projectile)
+   exec.SoundId = "rbxassetid://4958427918"
+   exec.Volume = 1
+   exec.PlaybackSpeed = 1
+   exec.Looped = false
+   exec:Play()
+        
+        partTweenn1 = game:GetService("TweenService"):Create(projectile, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(2.5, 12, 2.5)
+    })
+    partTweenn1:Play()
+   end)()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Jail of Spikes"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 11 then
+                lastPressTime = currentTime 
+assetId = tonumber(8979024870)
+if not assetId then
+  warn("Invalid asset ID")
+  return
+end
+user = game.Players.LocalPlayer
+
+for i = 1, 5 do
+sound1 = Instance.new("Sound", user.Character.Torso)
+sound1.SoundId = "rbxassetid://4958427918"
+sound1.Volume = 1
+sound1.PlaybackSpeed = 1
+sound1.Looped = false
+sound1:Play()
+end
+
+function createBlock(position)
+  projectile = game:GetObjects("rbxassetid://" .. assetId)[1]
+  projectile.Size = Vector3.new(2.5,12,2.5)
+  projectile.Anchored = true
+  projectile.Color = Color3.fromRGB(0, 0, 0)
+  projectile.Name = "Spike"
+  projectile.Material = "Neon"
+  projectile.CanCollide = false
+  projectile.Position = position - Vector3.new(0, 5, 0)
+  projectile.Parent = workspace
+  game.Debris:AddItem(projectile, 8.5)
+
+  projectile.Touched:Connect(function(hit)
+    if hit.Parent:FindFirstChild("Humanoid") and hit.Parent ~= game.Players.LocalPlayer.Character then
+      hit.Parent.Humanoid:ChangeState("Dead")
+      hit.Parent.Humanoid:TakeDamage(math.huge)
+    end
+  end)
+  
+  partTweenn1 = game:GetService("TweenService"):Create(projectile, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {
+        Position = projectile.Position + Vector3.new(0, 10, 0)
+    })
+    partTweenn1:Play()
+end
+
+radius = 40
+
+  mousePos = user:GetMouse().Hit.Position
+  for i = 1, 64 do
+   coroutine.wrap(function()
+    angle = math.rad(i * (360 / 64))
+    x = radius * math.cos(angle)
+    z = radius * math.sin(angle)
+    y = 0
+    local position = mousePos + Vector3.new(x, y, z)
+    createBlock(position)
+   end)()
+  end
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Controlled Black Hole"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 15 then
+                lastPressTime = currentTime 
+  blackhole = Instance.new("Part", workspace)
+blackhole.Name = "Black Hole"
+blackhole.Size = Vector3.new(0, 0, 0)
+blackhole.BrickColor = BrickColor.new("Black")
+blackhole.Color = Color3.fromRGB(0, 0, 0)
+blackhole.Material = "Neon"
+blackhole.CanCollide = false
+blackhole.Anchored = true
+blackhole.Shape = "Ball"
+blackhole.CFrame = game.Players.LocalPlayer.Character.Torso.CFrame
+game.Debris:AddItem(blackhole, 10)
+
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://182393478"
+local k = game:GetService("Players").LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+k:Play()
+k:AdjustSpeed(1)
+
+sound = Instance.new("Sound", blackhole)
+sound.SoundId = "rbxassetid://6878476054"
+sound.Volume = 0
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+partTweenn1 = game:GetService("TweenService"):Create(blackhole, TweenInfo.new(1.4, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(5, 5, 5)
+    })
+    partTweenn1:Play()
+    
+    soundTweenn1 = game:GetService("TweenService"):Create(sound, TweenInfo.new(1.4, Enum.EasingStyle.Exponential), {
+        Volume = 1
+    })
+    soundTweenn1:Play()
+
+function checkhumanoids()
+foundhumanoids = {}
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= game.Players.LocalPlayer.Character then
+        distance = (v.RootPart.Position - blackhole.Position).magnitude
+        if distance <= 40 then
+            table.insert(foundhumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundhumanoids) do
+ humanoid:TakeDamage(humanoid.MaxHealth / 50)
+ humanoid.RootPart.CFrame = blackhole.CFrame
+end
+end
+
+spawn(function()
+repeat
+ task.wait()
+    targetPosition = game.Players.LocalPlayer.Character.Torso.CFrame * CFrame.new(0, 12, -25)
+    blackhole.CFrame = blackhole.CFrame:lerp(targetPosition, 0.05)
+    blackhole.CFrame = blackhole.CFrame * CFrame.Angles(0, math.rad(game:GetService("RunService").Heartbeat:Wait() * 1), 0)
+    coroutine.wrap(checkhumanoids)()
+until blackhole.Transparency >= 1 or blackhole.Parent == nil
+end)
+ wait(5)
+partTweenn3 = game:GetService("TweenService"):Create(blackhole, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(0,0,0)
+    })
+    partTweenn3:Play()
+    
+    soundTweenn2 = game:GetService("TweenService"):Create(sound, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Volume = 1
+    })
+    soundTweenn2:Play()
+ partTweenn3.Completed:Wait()
+ blackhole.Transparency = 1
+k:Stop()
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Dark Sphere"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 15 then
+                lastPressTime = currentTime 
+sound = Instance.new("Sound", game.Players.LocalPlayer.Character.Head)
+sound.SoundId = "rbxassetid://305018900"
+sound.Volume = 1
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+sphere = Instance.new("Part")
+sphere.Size = Vector3.new(50, 50, 50)
+sphere.Anchored = true
+sphere.Locked = true
+sphere.Color = Color3.fromRGB(0, 0, 0)
+sphere.Material = "Neon"
+sphere.Shape = "Ball"
+sphere.Position = game.Players.LocalPlayer.Character.Head.Position + Vector3.new(0, 500, 0)
+sphere.Parent = game.Workspace
+game.Debris:AddItem(sphere, 10)
+
+sound2 = Instance.new("Sound", sphere)
+sound2.SoundId = "rbxassetid://268942903"
+sound2.Volume = 5
+sound2.PlaybackSpeed = 1
+sound2.Looped = true
+sound2:Play()
+
+blackholep = Instance.new("ParticleEmitter")
+blackholep.Name = "BlackHole Effect"
+blackholep.Enabled = true
+blackholep.Lifetime = NumberRange.new(1)
+blackholep.Rate = 50
+blackholep.Size = NumberSequence.new(6, 6)
+blackholep.Speed = NumberRange.new(0)
+blackholep.Texture = "rbxassetid://258128463"
+blackholep.Parent = sphere
+blackholep.LockedToPart = false
+blackholep.Color = ColorSequence.new(BrickColor.new("Really black").Color,BrickColor.new("Really black").Color)
+blackholep.RotSpeed = NumberRange.new(50)
+
+partTweenn1 = game:GetService("TweenService"):Create(sphere, TweenInfo.new(5, Enum.EasingStyle.Quad), {
+        Position = game.Players.LocalPlayer.Character.Head.Position,
+        Size = Vector3.new(20, 20, 20)
+    })
+    partTweenn1:Play()
+    effectTweenn1 = game:GetService("TweenService"):Create(game.Lighting, TweenInfo.new(5, Enum.EasingStyle.Linear), {
+        ExposureCompensation = -2
+    })
+    effectTweenn1:Play()
+    partTweenn1.Completed:Connect(function()
+  sphere.CanTouch = false
+  sphere.CanCollide = false
+  sphere.Transparency = 1
+  blackholep.Enabled = false
+  sound2:Stop()
+sound1 = Instance.new("Sound", game.Workspace)
+sound1.SoundId = "rbxassetid://145098006"
+sound1.Volume = 2
+sound1.PlaybackSpeed = 1
+sound1.Looped = false
+sound1:Play()
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - sphere.Position).magnitude
+        if distance <= 300 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+ humanoid:TakeDamage(math.huge)
+ humanoid:ChangeState("Dead")
+ humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -600
+ 
+ for _, part in pairs(humanoid.Parent:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            partTweenn2 = game:GetService("TweenService"):Create(part, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {
+        Transparency = 1
+    })
+    partTweenn2:Play()
+                        end
+                    end
+end
+
+for i = 1, 30 do
+t = Instance.new("Part", workspace)
+t.Anchored = false
+t.Color = Color3.new(0, 0, 0)
+t.Material = "Neon"
+t.Shape = "CornerWedge"
+t.Position = sphere.Position
+t.Size = Vector3.new(math.random(1, 10), math.random(1, 10), math.random(1, 10))
+t.Velocity = Vector3.new(math.random(-500, 500), math.random(-300, 300), math.random(-500, 500))
+game.Debris:AddItem(t, 10)
+end
+
+effectTweenn2 = game:GetService("TweenService"):Create(game.Lighting, TweenInfo.new(2.5, Enum.EasingStyle.Linear), {
+        ExposureCompensation = 0
+    })
+    effectTweenn2:Play()
+    end)
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
