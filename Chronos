@@ -891,15 +891,15 @@ tool.ToolTip = "I hope my friend Meta Sphere help me"
 
 tool.Activated:Connect(function()
  tool:Destroy()
- local assetId = tonumber(310615620)
-if not assetId then
+ local assetId1 = tonumber(310615620)
+if not assetId1 then
   warn("Invalid asset ID")
   return
 end
 
 local user = game.Players.LocalPlayer
 
-meta = game:GetObjects("rbxassetid://" .. assetId)[1]
+meta = game:GetObjects("rbxassetid://" .. assetId1)[1]
 meta.Parent = workspace
 meta.Name = "Meta Sphere"
 meta.Size = Vector3.new(4, 4, 4)
