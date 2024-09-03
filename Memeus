@@ -1,0 +1,377 @@
+local tool = Instance.new("Tool")
+tool.Name = "Teleport"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 2 then
+                lastPressTime = currentTime 
+mouse = game.Players.LocalPlayer:GetMouse()
+hit = mouse.Hit
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = hit
+
+sound = Instance.new("Sound", game.Players.LocalPlayer.Character.Torso)
+sound.SoundId = "rbxassetid://6439289406"
+sound.Volume = 2
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - hit.Position).magnitude
+        if distance <= 15 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+ humanoid:ChangeState("FallingDown")
+ humanoid:TakeDamage(humanoid.MaxHealth / 10)
+end
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Cool Hamster"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 5 then
+                lastPressTime = currentTime 
+head = Instance.new("Part", workspace)
+head.Anchored = true
+head.CanCollide = false
+head.Transparency = 0
+head.Size = Vector3.new(1.2, 1.2, 1.2)
+game.Debris:AddItem(head, 10)
+
+spawn(function()
+ repeat task.wait()
+head.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
+ until head.Parent == nil
+end)
+
+decal = Instance.new("Decal", head)
+decal.Texture = "rbxassetid://8450601351"
+decal.Face = Enum.NormalId.Front
+
+sound = Instance.new("Sound", head)
+sound.SoundId = "rbxassetid://577475178"
+sound.Volume = 3
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - Usuario.Character.HumanoidRootPart.Position).magnitude
+        if distance <= 25 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+  humanoid.RootPart.Velocity = head.CFrame.LookVector * 1000
+  humanoid:ChangeState("Dead")
+  humanoid:TakeDamage(math.huge)
+end
+
+wait(sound.TimeLength)
+
+decalTweenn1 = game:GetService("TweenService"):Create(decal, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {
+        Transparency = 1
+    })
+    decalTweenn1:Play()
+partTweenn1 = game:GetService("TweenService"):Create(head, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {
+        Transparency = 1
+    })
+    partTweenn1:Play()
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Chinese Curse"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 2 then
+                lastPressTime = currentTime 
+hitbox = Instance.new("Part", workspace)
+hitbox.Size = Vector3.new(10, 10, 1)
+hitbox.Transparency = 0
+hitbox.Anchored = false
+hitbox.CanCollide = false
+hitbox.Material = "SmoothPlastic"
+hitbox.Color = Color3.fromRGB(255, 255, 255)
+hitbox.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
+decal = Instance.new("Decal", hitbox)
+decal.Texture = "rbxassetid://7915312891"
+decal.Face = Enum.NormalId.Front
+
+bodyVelocity = Instance.new("BodyVelocity", hitbox)
+bodyVelocity.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector * 300
+bodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+
+sound = Instance.new("Sound", hitbox)
+sound.SoundId = "rbxassetid://7662729818"
+sound.Volume = 5
+sound.PlaybackSpeed = 1
+sound.Looped = true
+sound:Play()
+
+hitbox.Touched:Connect(function(hit)
+ humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+  if humanoid and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+humanoid:TakeDamage(math.huge)
+humanoid:ChangeState("Dead")
+humanoid.RootPart.Velocity = hitbox.CFrame.LookVector * 1000 + Vector3.new(0, 500, 0)
+  end 
+end)
+
+game.Debris:AddItem(hitbox, 10) 
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "†"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 5 then
+                lastPressTime = currentTime 
+sound = Instance.new("Sound", game.Players.LocalPlayer.Character.Torso)
+sound.SoundId = "rbxassetid://6378112790"
+sound.Volume = 4
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+obj = Instance.new("Part", workspace)
+obj.Size = Vector3.new(0, 0, 0)
+obj.Transparency = 0
+obj.Anchored = true
+obj.Locked = true
+obj.Material = "Neon"
+obj.CanCollide = false
+obj.Shape = "Ball"
+obj.Position = game.Players.LocalPlayer.Character.Torso.Position
+
+g = ""
+for i = 0, 5 do
+h = i
+ if h == 0 then
+g = Enum.NormalId.Right
+ elseif h == 1 then
+g = Enum.NormalId.Left
+ elseif h == 2 then
+g = Enum.NormalId.Bottom
+ elseif h == 3 then
+g = Enum.NormalId.Front
+ elseif h == 4 then
+g = Enum.NormalId.Top
+ elseif h == 5 then
+g = Enum.NormalId.Back
+end
+decal = Instance.new("Decal", obj)
+decal.Texture = "rbxassetid://1299973474"
+decal.Face = g
+end
+
+game.Debris:AddItem(obj, 3)
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - Usuario.Character.HumanoidRootPart.Position).magnitude
+        if distance <= 100 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+  humanoid:ChangeState("FallingDown")
+  humanoid:ChangeState(0)
+  humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -300
+end
+
+partTweenn1 = game:GetService("TweenService"):Create(obj, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(100, 100, 100),
+        Transparency = 1
+    })
+    partTweenn1:Play()
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local tool = Instance.new("Tool")
+tool.Name = "Some Box"
+tool.RequiresHandle = false
+
+local lastPressTime = 0
+tool.Activated:Connect(function()
+  local currentTime = tick()
+            if currentTime - lastPressTime >= 10 then
+                lastPressTime = currentTime 
+cub = Instance.new("Part", workspace)
+cub.Size = Vector3.new(5, 5, 5)
+cub.Transparency = 0
+cub.Anchored = false
+cub.Material = "SmoothPlastic"
+cub.Position = game.Players.LocalPlayer.Character.Torso.Position
+game.Debris:AddItem(cub, 10)
+
+sound = Instance.new("Sound", cub)
+sound.SoundId = "rbxassetid://12759603968"
+sound.Volume = 2
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+
+wait(2)
+
+for i = 1, 4 do
+ if i == 1 then
+d = 1
+ elseif i == 2 then
+d = 0.8
+ elseif i == 3 then
+d = 2
+ elseif i == 4 then
+d = 0.5
+end
+sound1 = Instance.new("Sound", cub)
+sound1.SoundId = "rbxassetid://9084006093"
+sound1.Volume = 6
+sound1.PlaybackSpeed = d
+sound1.Looped = false
+sound1:Play()
+obj = Instance.new("Part", workspace)
+obj.Size = Vector3.new(0, 0, 0)
+obj.Transparency = 0
+obj.Anchored = true
+obj.Locked = true
+obj.Material = "Neon"
+obj.CanCollide = false
+obj.Shape = "Ball"
+obj.Position = cub.Position
+game.Debris:AddItem(obj, 3)
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - cub.Position).magnitude
+        if distance <= 100 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+  humanoid:ChangeState("FallingDown")
+  humanoid:ChangeState(0)
+end
+
+partTweenn1 = game:GetService("TweenService"):Create(obj, TweenInfo.new(1, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(100, 100, 100),
+        Transparency = 1
+    })
+    partTweenn1:Play()
+   wait(2)
+end
+
+cub.Anchored = true
+cub.CanTouch = false
+cub.CanCollide = false
+cub.Transparency = 1
+
+sound2 = Instance.new("Sound", cub)
+sound2.SoundId = "rbxassetid://7018771498"
+sound2.Volume = 10
+sound2.PlaybackSpeed = 1
+sound2.Looped = false
+sound2:Play()
+
+obj = Instance.new("Part", workspace)
+obj.Size = Vector3.new(0, 0, 0)
+obj.Transparency = 0
+obj.Anchored = true
+obj.Locked = true
+obj.Material = "Neon"
+obj.CanCollide = false
+obj.Shape = "Ball"
+obj.Position = cub.Position
+
+g = ""
+for h = 0, 5 do
+ if h == 0 then
+g = Enum.NormalId.Right
+ elseif h == 1 then
+g = Enum.NormalId.Left
+ elseif h == 2 then
+g = Enum.NormalId.Bottom
+ elseif h == 3 then
+g = Enum.NormalId.Front
+ elseif h == 4 then
+g = Enum.NormalId.Top
+ elseif h == 5 then
+g = Enum.NormalId.Back
+end
+decal = Instance.new("Decal", obj)
+decal.Texture = "rbxassetid://2721397761"
+decal.Face = g
+end
+
+game.Debris:AddItem(obj, 3)
+
+local foundHumanoids = {}
+Usuario = game.Players.LocalPlayer
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("Humanoid") and v.RootPart and v.RootPart.Parent ~= Usuario.Character then
+        local distance = (v.RootPart.Position - Usuario.Character.HumanoidRootPart.Position).magnitude
+        if distance <= 100 then
+            table.insert(foundHumanoids, v)
+        end
+    end
+end
+
+for _, humanoid in pairs(foundHumanoids) do
+  humanoid:ChangeState("FallingDown")
+  humanoid:ChangeState("Dead")
+  humanoid:TakeDamage(math.huge)
+  humanoid.RootPart.Velocity = humanoid.RootPart.CFrame.LookVector * -300
+end
+
+partTweenn1 = game:GetService("TweenService"):Create(obj, TweenInfo.new(0.2, Enum.EasingStyle.Linear), {
+        Size = Vector3.new(150, 150, 150),
+        Transparency = 1
+    })
+    partTweenn1:Play()
+            end
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
